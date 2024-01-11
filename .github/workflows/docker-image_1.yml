@@ -14,6 +14,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Set tag 
+      run: export tag _name=$(date +%$)
+    
     - name: Build the Docker image
       shell: bash
       run: 
@@ -21,6 +25,7 @@ jobs:
        docker build . --file Dockerfile --tag geo-db:$(date +%s)
        
     - name: Push Docker image to Docker.Hub
-      run: docker push geo-db
+      run: docker push geo-db:$tag _name
+      
       
       
