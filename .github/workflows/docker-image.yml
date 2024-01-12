@@ -37,7 +37,7 @@ jobs:
     - name: Build the Docker image geo-cln
       run: |
         cd 03_Client
-        docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-cln:$TAG_NAME
+        docker build . --file Dockerfile.comppose --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-cln:$TAG_NAME
         
     - name: Push Docker images to Docker.Hub
       run: |
