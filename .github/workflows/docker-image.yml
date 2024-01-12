@@ -24,11 +24,17 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Build the Docker image
+    - name: Build the Docker image geo-db
       run: |
         cd 01_DB
         docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
+        
+    - name: Build the Docker image geo-srv
+      run: |
+        cd 02_Server
+        docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-srv:$TAG_NAME
 
-    - name: Push Docker image to Docker.Hub
+    - name: Push Docker images to Docker.Hub
       run: |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-srv:$TAG_NAME
