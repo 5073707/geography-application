@@ -33,8 +33,14 @@ jobs:
       run: |
         cd 02_Server
         docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-srv:$TAG_NAME
-
+    
+    - name: Build the Docker image geo-cln
+      run: |
+        cd 03_Client
+        docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-cln:$TAG_NAME
+        
     - name: Push Docker images to Docker.Hub
       run: |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-srv:$TAG_NAME
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-cln:$TAG_NAME
